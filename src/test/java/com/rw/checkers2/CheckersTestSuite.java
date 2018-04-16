@@ -1,8 +1,8 @@
 package com.rw.checkers2;
 
-import com.kodilla.checkers2.game.Board;
-import com.kodilla.checkers2.game.Definitions.Type;
-import com.kodilla.checkers2.game.Figure;
+import com.rw.checkers2.game.Board;
+import com.rw.checkers2.game.Definitions.Type;
+import com.rw.checkers2.game.Figure;
 import org.junit.Assert;
 import org.junit.Test;
 

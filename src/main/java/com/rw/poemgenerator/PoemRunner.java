@@ -1,6 +1,6 @@
 package com.rw.poemgenerator;
 
-import com.kodilla.linkedlist.Collection;
+import com.rw.linkedlist.Collection;
 
 public class PoemRunner {
     public static void main (String[] args) {

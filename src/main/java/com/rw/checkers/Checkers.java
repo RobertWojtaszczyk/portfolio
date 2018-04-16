@@ -1,6 +1,6 @@
 package com.rw.checkers;
 
-import com.kodilla.checkers.game.Board;
+import com.rw.checkers.game.Board;
 
 public class Checkers {
     public static void main(String[] args) {

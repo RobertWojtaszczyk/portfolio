@@ -1,9 +1,7 @@
 package com.rw.checkers2.game;
-
-import com.kodilla.checkers2.game.Definitions.Type;
-
-import static com.kodilla.checkers2.game.Board.MAX_INDEX;
-import static com.kodilla.checkers2.game.Board.MIN_INDEX;
+import com.rw.checkers2.game.Definitions.Type;
+import static com.rw.checkers2.game.Board.MAX_INDEX;
+import static com.rw.checkers2.game.Board.MIN_INDEX;
 
 public class Validator {
     public static boolean validate(Board board, int currentX, int currentY, int targetX, int targetY) {

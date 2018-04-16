@@ -1,6 +1,7 @@
 package com.rw.poemgenerator;
 
-import com.kodilla.linkedlist.Collection;
+
+import com.rw.linkedlist.Collection;
 
 public class Poem {
 //    private List<String> poem = new ArrayList<>();

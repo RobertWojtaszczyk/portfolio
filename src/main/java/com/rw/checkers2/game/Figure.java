@@ -1,6 +1,7 @@
 package com.rw.checkers2.game;
-import com.kodilla.checkers2.game.Definitions.Color;
-import com.kodilla.checkers2.game.Definitions.Type;
+
+import com.rw.checkers2.game.Definitions.Color;
+import com.rw.checkers2.game.Definitions.Type;
 
 public class Figure {
     private final Type type;
