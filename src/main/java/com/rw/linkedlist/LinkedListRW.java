@@ -1,21 +1,25 @@
 package com.rw.linkedlist;
 
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-public class Collection<T> implements Iterable<T> {
-    private Element<T> collectionHead = null;
+public class LinkedListRW<E> implements Iterable<E> {
+    private Element<E> collectionHead = null;
     private int size;
 
     public int size() {
         return this.size;
     }
 
-    public void add(T e) {
-        Element<T> element = new Element<>(e);
+    public void add(E e) {
+        Element<E> element = new Element<>(e);
         if (collectionHead == null) {
             collectionHead = element;
         } else {
-            Element<T> temp = collectionHead;
+            Element<E> temp = collectionHead;
             while (temp.getNext()!=null) {
                 temp = temp.getNext();
             }
@@ -25,10 +29,10 @@ public class Collection<T> implements Iterable<T> {
         size++;
     }
 
-    public T get(int n) {
+    public E get(int n) {
         checkIndex(n);
         int rangeCheck = 0;
-        Element<T> temp = collectionHead;
+        Element<E> temp = collectionHead;
         while (rangeCheck < n) {
             temp = temp.getNext();
             rangeCheck++;
@@ -43,7 +47,7 @@ public class Collection<T> implements Iterable<T> {
 
     public void remove(int n) {
         checkIndex(n);
-        Element<T> temp = collectionHead;
+        Element<E> temp = collectionHead;
 
         int rangeCheck = 0;
         while (rangeCheck < n) {
@@ -78,12 +82,12 @@ public class Collection<T> implements Iterable<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new CollectionIterator();
     }
 
-    private class CollectionIterator implements Iterator<T> {
-        Element<T> cursor = collectionHead;
+    private class CollectionIterator implements Iterator<E> {
+        Element<E> cursor = collectionHead;
 
         @Override
         public boolean hasNext() {
@@ -91,10 +95,19 @@ public class Collection<T> implements Iterable<T> {
         }
 
         @Override
-        public T next() {
-            T currentElement = cursor.getValue();
+        public E next() {
+            E currentElement = cursor.getValue();
             cursor = cursor.getNext();
             return currentElement;
         }
+    }
+
+    @Override
+    public Spliterator<E> spliterator() {
+        return Spliterators.spliterator((java.util.Collection<E>) this, 0);
+    }
+
+    public Stream<E> stream() {
+        return StreamSupport.stream(spliterator(), false);
     }
 }

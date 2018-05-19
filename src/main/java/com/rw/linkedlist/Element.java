@@ -1,31 +1,31 @@
 package com.rw.linkedlist;
 
-public class Element<T> {
-    private T value;
-    private Element<T> next = null;
-    private Element<T> prev = null;
+public class Element<E> {
+    private E value;
+    private Element<E> next = null;
+    private Element<E> prev = null;
 
-    public Element (T value) {
+    public Element (E value) {
         this.value = value;
     }
 
-    public T getValue() {
+    public E getValue() {
         return this.value;
     }
 
-    public Element<T> getNext() {
+    public Element<E> getNext() {
         return this.next;
     }
 
-    public Element<T> getPrev() {
+    public Element<E> getPrev() {
         return this.prev;
     }
 
-    public void setNext(Element<T> next) {
+    public void setNext(Element<E> next) {
         this.next = next;
     }
 
-    public void setPrev(Element<T> prev) {
+    public void setPrev(Element<E> prev) {
         this.prev = prev;
     }
 }

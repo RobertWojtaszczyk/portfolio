@@ -30,33 +30,13 @@ public class Algorithm {
                     if (currentElement.getPossibleValues().size() == 0) {
                         return emptyPossibleValuesListError();
                     } else {
-                        List<Integer> newPossibleValues = currentElement.getPossibleValues().stream()
-                                .filter(possibleValue -> currentRow.stream()
-                                        .noneMatch(sudokuElement -> sudokuElement.getValue() == possibleValue))
-                                .filter(possibleValue -> currentColumn.stream()
-                                        .noneMatch(sudokuElement -> sudokuElement.getValue() == possibleValue))
-                                .filter(possibleValue -> currentSection.stream()
-                                        .noneMatch(sudokuElement -> sudokuElement.getValue() == possibleValue))
-                                .collect(Collectors.toList());
+                        List<Integer> newPossibleValues = searchPossibleValuesToRemove(currentElement, currentRow, currentColumn, currentSection);
                         if (!newPossibleValues.equals(currentElement.getPossibleValues())) {
                             currentElement.setPossibleValues(newPossibleValues);
                             actionPerformed = true;
                         }
 
-                        List<Integer> valuesToPutInCurrentField = currentElement.getPossibleValues().stream()
-                                .filter(possibleValue -> currentRow.stream()
-                                        .filter(sudokuElement -> !sudokuElement.equals(currentElement))
-                                        .flatMap(sudokuElement -> sudokuElement.getPossibleValues().stream())
-                                        .noneMatch(possibleValue::equals))
-                                .filter(possibleValue -> currentColumn.stream()
-                                        .filter(sudokuElement -> !sudokuElement.equals(currentElement))
-                                        .flatMap(sudokuElement -> sudokuElement.getPossibleValues().stream())
-                                        .noneMatch(possibleValue::equals))
-                                .filter(possibleValue -> currentSection.stream()
-                                        .filter(sudokuElement -> !sudokuElement.equals(currentElement))
-                                        .flatMap(sudokuElement -> sudokuElement.getPossibleValues().stream())
-                                        .noneMatch(possibleValue::equals))
-                                .collect(Collectors.toList());
+                        List<Integer> valuesToPutInCurrentField = searchForValueToPutInCurrentField(currentElement, currentRow, currentColumn, currentSection);
                         if (valuesToPutInCurrentField.size() > 0) {
                             currentElement.setValue(valuesToPutInCurrentField.get(0));
                             currentElement.getPossibleValues().clear();
@@ -79,6 +59,34 @@ public class Algorithm {
         } else {
             return actionPerformed || guessValueForEmptyElement();
         }
+    }
+
+    private List<Integer> searchForValueToPutInCurrentField(SudokuElement currentElement, List<SudokuElement> currentRow, List<SudokuElement> currentColumn, List<SudokuElement> currentSection) {
+        return currentElement.getPossibleValues().stream()
+                .filter(possibleValue -> currentRow.stream()
+                        .filter(sudokuElement -> !sudokuElement.equals(currentElement))
+                        .flatMap(sudokuElement -> sudokuElement.getPossibleValues().stream())
+                        .noneMatch(possibleValue::equals))
+                .filter(possibleValue -> currentColumn.stream()
+                        .filter(sudokuElement -> !sudokuElement.equals(currentElement))
+                        .flatMap(sudokuElement -> sudokuElement.getPossibleValues().stream())
+                        .noneMatch(possibleValue::equals))
+                .filter(possibleValue -> currentSection.stream()
+                        .filter(sudokuElement -> !sudokuElement.equals(currentElement))
+                        .flatMap(sudokuElement -> sudokuElement.getPossibleValues().stream())
+                        .noneMatch(possibleValue::equals))
+                .collect(Collectors.toList());
+    }
+
+    private List<Integer> searchPossibleValuesToRemove(SudokuElement currentElement, List<SudokuElement> currentRow, List<SudokuElement> currentColumn, List<SudokuElement> currentSection) {
+        return currentElement.getPossibleValues().stream()
+                .filter(possibleValue -> currentRow.stream()
+                        .noneMatch(sudokuElement -> sudokuElement.getValue() == possibleValue))
+                .filter(possibleValue -> currentColumn.stream()
+                        .noneMatch(sudokuElement -> sudokuElement.getValue() == possibleValue))
+                .filter(possibleValue -> currentSection.stream()
+                        .noneMatch(sudokuElement -> sudokuElement.getValue() == possibleValue))
+                .collect(Collectors.toList());
     }
 
     public boolean validateBoardValues() {
